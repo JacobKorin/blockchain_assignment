@@ -52,8 +52,8 @@
     <br>
     <div class="container"> 
         <div class="row">   
-            <label class="col-sm-2">Public Key:</label>
-                <textarea id="public_key" rows="5" class="form-control" readonly>
+            <label class="col-sm-2">Private Key:</label>
+                <textarea id="private_key" rows="5" class="form-control" readonly>
                 </textarea>"
             
         </div>
@@ -79,7 +79,21 @@
     <script src="/static/vendor/DataTables/js/ellipsis.js"></script>
     <script>
         $(function(){
- 
+            $('input').click(function(){
+                $.ajax({
+                    url:'/wallet/new',
+                    type:'GET',
+                    success:function(response){
+                        document.getElementById("public_key").innerHTML = response['public_key']
+                        document.getElementById("private_key").innerHTML = response['private_key']  
+                        document.getElementById("warning").style.display = "block";
+                    },
+                    error:function(error){
+                        console.log(error);
+                    }
+
+                })
+            })
         })
     </script>
 </body>
